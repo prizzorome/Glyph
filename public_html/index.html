@@ -880,6 +880,10 @@
         /*************************** Behavior graph *******************/
 
         var linearScaleBehaviorNode, distanceBehaviorScale;
+        var behavior_node_text = function(d, i) {
+//                    return i;
+            return d.user_ids[0];
+        };
 
         function visualizeBehaviorData() {
             linearScaleBehaviorNode = getBehaviorNodeScale(data.trajectories);
@@ -917,11 +921,6 @@
                 .attr("r", function(d) {
                     return linearScaleBehaviorNode(d.user_ids.length);
                 });
-            //
-            //            nodeEnter.append("title").text(function (d) {
-            //                return d.user_ids;
-            ////                return d.id;
-            //            });
             nodeEnter.append("text")
                 .attr("class", function(d) {
                     if (d.completed)
@@ -937,9 +936,7 @@
                     return maxNodeSize;
                     //                        return linearScaleBehaviorNode(d.user_ids.length);
                 })
-                .text(function(d, i) {
-                    return i;
-                });
+                .text(behavior_node_text);
 
             // UPDATE --------------------
             behaviorlink.attr("id", function(d, i) {
@@ -979,9 +976,7 @@
                     return maxNodeSize;
                     //                        return linearScaleBehaviorNode(d.user_ids.length);
                 })
-                .text(function(d, i) {
-                    return i;
-                });
+                .text(behavior_node_text);
 
 
             behaviorlink.exit().remove();
